@@ -1,61 +1,75 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package ordenamientoburbuja;
+
 import java.util.Scanner;
+
 /**
- * 
- * @author MLeandroCardenas
- * @version 2017.26.02
- * 
+ * @author Edgar Andres Krejci Bautista
+ * @author Michael Leandro Cardenas
+ * @version version 1.1
  */
 public class OrdenamientoBurbuja {
-          short longitud=0; 
-          short []array;
-          Scanner teclado= new Scanner(System.in);//Creacion objeto de la clase Scanner 
-          
-    public OrdenamientoBurbuja() { //Constructor de la clase OrdenamientoBurbuja  
-        System.out.println("Digite la longitud de su vector:");
-         longitud=teclado.nextShort();
-         array=new short [longitud]; // Crea el espacio en memoria para el vector
-    } 
-     /**
-      * 
-      * @param args, string[]
-      * 
-      */
-    /*LA CLASE PRINCIPAL DONDE SE CREA EL OBJETO Y SE INVOCAN LOS
-    METODOS DE LA CLASE*/
-    public static void main(String[] args) { //CLASE PRINCIPAL MAIN.
-       OrdenamientoBurbuja vector = new OrdenamientoBurbuja(); //Creacion del objeto vector
-       vector.llenarArrayYImprimirlo();
-       vector.OrdenarArrayYImprimirlo(); 
+    /**
+     * Variable utilizada para conocer el tamaño del vector a organizar
+     */
+    private byte dimension;
+    /**
+     * Variable utilizada para almacenar los datos a organizar
+     */
+    private short vector[];
+    /**
+     * Construcctor empleado para llamar los metodos obtenerInformacion,orednarVector,imprimirVector
+     */
+    public OrdenamientoBurbuja(){
+        obtenerInformacion();
+        ordenarVector();
+        imprimirVector();
     }
-    
-    //Metodo para llenar el vector y lo imprime sin ordenar...
-    public void llenarArrayYImprimirlo(){
-      for(int i=0; i<longitud; i++){
-          System.out.println("Digite el numero:");
-          array[i]=teclado.nextShort();
-      } 
-      System.out.println("El vector digitado por usted es:\n");
-      for(int i=0; i<longitud; i++){
-        System.out.println( array[i]);
-   }
-  } 
-    //Metodo donde esta la logica de ordenamiento y lo imprime ya ordenado...
-    public void OrdenarArrayYImprimirlo(){
-        short temporal=0;
-        for (int i=0; i<array.length; i++){
-   	  for (int j=i+1; j<array.length; j++){
-            if(array[i]>array[j]){
-     	       temporal = array[i];
-     		array[i] = array[j];
-     		 array[j] = temporal;
-       }    
-     }
-   } 
-        System.out.println("EL VECTOR ORDENADO ES:\n");
-      for(int i=0; i<array.length; i++){  
-       System.out.println(array[i]);
-      }
-  }    
-}
+    /**
+     * metodo encargado de leer los datos a organizar
+     */
+    private void obtenerInformacion(){
+        System.out.println("INGRESE LA DIMENSION DEL VECTOR");
+        Scanner sc= new Scanner (System.in);
+        dimension=sc.nextByte();
+        vector = new short [dimension];
+        for (byte i=0;i<dimension;i++){
+            System.out.println("INGRESE LOS DATOS DEL VECTOR");
+            vector[i]=sc.nextShort();
+        }                
+    }   
+    /**
+     * Metodo que ordena el vector utilizando el metodo de la burbuja
+     */
+    private void ordenarVector(){
+        short datoAnterior;
+        for (byte i=0;i<dimension;i++){
+               for (byte j=0;j<dimension;j++){
+                   if (vector[i]<vector[j]){
+                       datoAnterior=vector[i];
+                       vector[i]=vector[j];
+                       vector[j]=datoAnterior;
+                   }
+               }
+           }    
+    }
+    /**
+     * metodo utilizado para imprmir el vector organizado
+     */
+    private void imprimirVector(){
+        for (byte i=0;i<dimension;i++){
+            System.out.println("SU VECTOR ORGANIZADO ES "+vector[i]);
+        }
+    }
+    /**
+     * Metodo principal en donde inicia el programa en este se crea el objeto del construcctor que llama a las otras funciones
+     * @param args 
+     */
+    public static void main(String[] args) {
+        OrdenamientoBurbuja ordenamientoBurbuja = new OrdenamientoBurbuja();
+    }
+} 
